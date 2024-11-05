@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Online Bike Store</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+
+<div th:insert="~{fragments/header :: header}"></div>
+
+<!-- Main content -->
+<h1 style="text-align: center;">Welcome to the Online Bike Store!</h1>
+
+<div class="container">
+  <a th:href="@{/products}">
+    <img src="/images/banner.webp" alt="Bike Banner" class="banner-image">
+  </a>
+  <h2>Discover Our Latest Bikes and Accessories</h2>
+  <p>Find the perfect bike for your adventures, whether you’re hitting the trails or cruising the city streets.</p>
+  <a href="/products" class="button">Shop Now</a>
+</div>
+
+<div th:insert="~{fragments/footer :: footer}"></div>
+
+</body>
+</html>

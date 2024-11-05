@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="3543a4ca-a4c2-4f6d-9afb-4f0391e7bb15" name="online_bike_store@localhost Mapping">
+      <data-sources db="8903cca8-3688-400a-89a6-f476583cf88c" ddl="77c78ae3-7f4b-40c9-93a0-aa4330edecdc" />
+      <scope>
+        <node kind="database" qname="@" />
+      </scope>
+    </mapping>
+  </component>
+  <component name="SqlDataSourceStorage">
+    <option name="dataSources">
+      <list>
+        <State>
+          <option name="id" value="77c78ae3-7f4b-40c9-93a0-aa4330edecdc" />
+          <option name="name" value="online_bike_store@localhost (DDL)" />
+          <option name="dbmsName" value="MYSQL" />
+          <option name="urls">
+            <array />
+          </option>
+          <option name="outLayout" value="File per object by schema.groovy" />
+        </State>
+      </list>
+    </option>
+  </component>
+</project>

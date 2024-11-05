@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="/css/styles.css"/>
+</head>
+<body>
+<div th:insert="fragments/header :: header"></div>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="/css/styles.css"/>
+</head>
+<body>
+<div th:insert="fragments/header :: header"></div>
+
+<div class="container">
+    <h1>Your Shopping Cart</h1>
+
+    <div th:if="${cartItems.isEmpty()}">
+        <p>Your cart is empty.</p>
+    </div>
+
+    <table th:if="${!cartItems.isEmpty()}" class="cart-table">
+        <thead>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+        </tr>
+        </thead>
+        <tbody th:each="item : ${cartItems}">
+        <tr>
+            <td th:text="${item.product.name}">Product Name</td>
+            <td th:text="${item.quantity}">1</td>
+            <td>$<span th:text="${item.product.price}">0.00</span></td>
+            <td>$<span th:text="${item.product.price * item.quantity}">0.00</span></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p>Total: $<span th:text="${cartTotal}">0.00</span></p>
+
+    <a th:href="@{/checkout}" class="button">Proceed to Checkout</a>
+</div>
+
+<div th:insert="fragments/footer :: footer"></div>
+</body>
+</html>
+
+<h1>Your Shopping Cart</h1>
+
+<div th:if="${cartItems.isEmpty()}">
+    <p>Your cart is empty.</p>
+</div>
+
+<table th:if="${!cartItems.isEmpty()}">
+    <thead>
+    <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Total</th>
+    </tr>
+    </thead>
+    <tbody th:each="item : ${cartItems}">
+    <tr>
+        <td th:text="${item.product.name}">Product Name</td>
+        <td th:text="${item.quantity}">1</td>
+        <td>$<span th:text="${item.product.price}">0.00</span></td>
+        <!-- Ensure backend calculates item total as quantity * price -->
+        <td>$<span th:text="${item.product.price * item.quantity}">0.00</span></td>
+    </tr>
+    </tbody>
+</table>
+
+<p>Total: $<span th:text="${cartTotal}">0.00</span></p>
+
+<a th:href="@{/checkout}" class="button">Proceed to Checkout</a>
+
+<div th:insert="fragments/footer :: footer"></div>
+</body>
+</html>
