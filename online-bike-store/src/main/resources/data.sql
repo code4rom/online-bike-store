@@ -1,4 +1,11 @@
-/*
+/*-- Insert roles
+INSERT INTO role (id, name) VALUES (1, 'ROLE_ADMIN'), (2, 'ROLE_USER');
+
+-- Insert users and assign roles
+INSERT INTO user (username, password, role_id) VALUES
+                                                   ('admin', '{bcrypt}hashed_admin_password', 1),
+                                                   ('user', '{bcrypt}hashed_user_password', 2);
+
 
 -- Insert roles if needed (skip this if roles were added manually)
 INSERT INTO role (id, name) VALUES (1, 'ROLE_ADMIN');

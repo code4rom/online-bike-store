@@ -1,7 +1,6 @@
 package com.bikestore.online_bike_store.model;
 
 import jakarta.persistence.*;
-import java.util.List;
 
 @Entity
 public class User {
@@ -14,15 +13,15 @@ public class User {
     private String password;
     private String email;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)  // 'user' should match the field name in Order
-    private List<Order> orders;
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "id")
     private Address address;
 
-    // Getters and setters
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id")
+    private Role role;
 
+    // Getters and setters
     public Long getId() {
         return id;
     }
@@ -55,11 +54,11 @@ public class User {
         this.email = email;
     }
 
-    public List<Order> getOrders() {
-        return orders;
+    public Role getRole() {
+        return role;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

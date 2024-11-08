@@ -121,8 +121,13 @@ nav a:hover {
     color: #3498db;
     font-weight: bold;
 }
-/* Product Detail Page */
 .product-detail-container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 .product-item a.button {
@@ -142,23 +147,35 @@ nav a:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
-    margin-top: 20px;
     padding: 20px;
-    background-color: #f8f8f8;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
-    margin: 0 auto;
-}
-
-.add-to-cart-form input[type="number"] {
-    padding: 8px;
-    width: 80px;
+    margin-top: 20px;
+    background-color: #f4f4f9;
     border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.add-to-cart-form label,
+.add-to-cart-form input,
+.add-to-cart-form button {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+.add-to-cart-form button {
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.add-to-cart-form button:hover {
+    background-color: #2980b9;
+}
 /* Footer Styling */
 footer {
     background-color: #2c3e50;
@@ -244,6 +261,14 @@ footer {
 .form-container .form-footer a {
     color: #00bfff;
     text-decoration: none;
+}
+.product-detail-container .product-image {
+    width: 100%;
+    max-width: 400px; /* Set a maximum width */
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .form-container .form-footer a:hover {

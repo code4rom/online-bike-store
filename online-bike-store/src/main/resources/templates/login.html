@@ -14,13 +14,17 @@
         <label for="username">Username</label>
         <input type="text" id="username" name="username" required>
 
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" required>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required />
 
         <button type="submit">Sign In</button>
 
         <div class="form-footer">
             <p>Don't have an account? <a th:href="@{/register}">Register here</a></p>
+        </div>
+
+        <div th:if="${param.error}">
+            <p style="color: red;">Invalid username or password</p>
         </div>
     </form>
 </div>

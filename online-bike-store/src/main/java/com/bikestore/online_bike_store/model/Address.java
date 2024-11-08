@@ -17,6 +17,7 @@ public class Address {
     private String zipCode;
 
     @OneToOne(mappedBy = "address")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
 // Getters and setters

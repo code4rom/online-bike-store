@@ -28,10 +28,13 @@ public class ProductController {
     }
 
     // Display details for a single product on the product detail page
-    @GetMapping("/products/{id}")
+    @GetMapping("/product-detail/{id}")
     public String productDetail(@PathVariable Long id, Model model) {
         Optional<Product> product = productService.findProductById(id);
-        product.ifPresent(value -> model.addAttribute("product", value));
-        return product.isPresent() ? "product-detail" : "redirect:/products";
-    }
+        if (product.isPresent()) {
+            model.addAttribute("product", product.get());
+            return "product-detail";
+        } else {
+            return "redirect:/products"; // Redirect to product list if product not found
+        }}
 }

@@ -37,13 +37,6 @@ public class UserController {
         userService.deleteUserById(id);
     }
 
-
-   // @GetMapping("/register")
-   // public String registerPage(Model model) {
-    //    model.addAttribute("user", new User());
-   //    return "register";
-   // }
-
     @PostMapping("/register")
     public String registerUser(User user) {
         userService.saveUser(user);
