@@ -1,6 +1,6 @@
 package com.bikestore.online_bike_store.controller;
 
-import com.bikestore.online_bike_store.model.Order;
+import com.bikestore.online_bike_store.model.CustomerOrder;
 import com.bikestore.online_bike_store.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,19 +22,19 @@ public class OrderController {
 
     // Endpoint to retrieve all orders.
     @GetMapping
-    public List<Order> getAllOrders() {
+    public List<CustomerOrder> getAllOrders() {
         return orderService.findAllOrders();
     }
 
     // Endpoint to retrieve an order by ID.
     @GetMapping("/{id}")
-    public Optional<Order> getOrderById(@PathVariable Long id) {
+    public Optional<CustomerOrder> getOrderById(@PathVariable Long id) {
         return orderService.findOrderById(id);
     }
 
     // Endpoint to create or update an order.
     @PostMapping
-    public void saveOrder(@RequestBody Order order) {
+    public void saveOrder(@RequestBody CustomerOrder order) {
         orderService.saveOrder(order);
     }
 

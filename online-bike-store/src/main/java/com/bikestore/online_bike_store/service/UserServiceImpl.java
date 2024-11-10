@@ -8,8 +8,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import java.util.Collections;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
@@ -52,7 +54,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public void saveUser(User user) {
-        // Ensure the password is encoded only if it’s not already hashed
         if (user.getPassword() != null && !user.getPassword().startsWith("$2a$")) { // BCrypt hashed passwords start with $2a$
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
@@ -64,17 +65,23 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         userRepository.deleteById(id);
     }
 
-    // This method will be used by Spring Security for authentication
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
-        // Create UserDetails using the user's information
+        // Map role to SimpleGrantedAuthority and ensure it starts with "ROLE_"
+        String roleName = user.getRole().getName();
+        if (!roleName.startsWith("ROLE_")) {
+            roleName = "ROLE_" + roleName;
+        }
+
+        Set<SimpleGrantedAuthority> authorities = Set.of(new SimpleGrantedAuthority(roleName));
+
         return org.springframework.security.core.userdetails.User.builder()
                 .username(user.getUsername())
-                .password(user.getPassword()) // Password is hashed and stored securely
-                .roles(user.getRole().getName()) // Assumes `getRole().getName()` provides the correct role format (e.g., ROLE_USER)
+                .password(user.getPassword())
+                .authorities(authorities)
                 .build();
     }
 }

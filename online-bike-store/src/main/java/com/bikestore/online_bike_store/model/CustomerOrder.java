@@ -3,7 +3,7 @@ package com.bikestore.online_bike_store.model;
 import jakarta.persistence.*;
 
 @Entity
-public class Order {
+public class CustomerOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

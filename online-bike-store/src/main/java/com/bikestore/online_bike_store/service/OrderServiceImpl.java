@@ -1,6 +1,6 @@
 package com.bikestore.online_bike_store.service;
 
-import com.bikestore.online_bike_store.model.Order;
+import com.bikestore.online_bike_store.model.CustomerOrder;
 import com.bikestore.online_bike_store.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,17 +19,17 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> findAllOrders() {
+    public List<CustomerOrder> findAllOrders() {
         return orderRepository.findAll();
     }
 
     @Override
-    public Optional<Order> findOrderById(Long id) {
+    public Optional<CustomerOrder> findOrderById(Long id) {
         return orderRepository.findById(id);
     }
 
     @Override
-    public void saveOrder(Order order) {
+    public void saveOrder(CustomerOrder order) {
         orderRepository.save(order);
     }
 

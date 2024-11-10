@@ -1,6 +1,6 @@
 package com.bikestore.online_bike_store.controller;
 
-import com.bikestore.online_bike_store.model.Order;
+import com.bikestore.online_bike_store.model.CustomerOrder;
 import com.bikestore.online_bike_store.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,12 +16,12 @@ public class CheckoutController {
 
     @GetMapping("/checkout")
     public String checkoutPage(Model model) {
-        model.addAttribute("order", new Order());
+        model.addAttribute("order", new CustomerOrder());
         return "checkout";
     }
 
     @PostMapping("/checkout")
-    public String processCheckout(Order order) {
+    public String processCheckout(CustomerOrder order) {
         orderService.saveOrder(order);
         return "redirect:/order-confirmation";
     }
