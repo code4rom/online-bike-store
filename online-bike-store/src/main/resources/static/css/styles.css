@@ -13,7 +13,13 @@ body {
     color: #333;
     line-height: 1.6;
 }
-
+.index-page {
+    font-family: 'Roboto', sans-serif;
+    background: url("/images/background2.webp") no-repeat center center fixed;
+    background-size: cover;
+    color: #333;
+    line-height: 1.6;
+}
 h1 {
     font-size: 2.2em;
     font-weight: bold;
