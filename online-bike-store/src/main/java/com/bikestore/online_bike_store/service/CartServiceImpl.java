@@ -2,10 +2,12 @@ package com.bikestore.online_bike_store.service;
 
 import com.bikestore.online_bike_store.model.CartItem;
 import com.bikestore.online_bike_store.model.Product;
+import com.bikestore.online_bike_store.model.User;
 import com.bikestore.online_bike_store.repository.CartItemRepository;
 import com.bikestore.online_bike_store.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -22,32 +24,35 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public List<CartItem> getCartItems() {
-        return cartItemRepository.findAll();
+    public List<CartItem> getCartItemsByUser(User user) {
+        return cartItemRepository.findByUser(user);
     }
 
     @Override
-    public void addProductToCart(Long productId, int quantity) {
-        Product product = productRepository.findById(productId).orElseThrow(() -> new RuntimeException("Product not found"));
+    public void addProductToCart(User user, Long productId, int quantity) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
 
-        // Check if the product is already in the cart
-        CartItem cartItem = cartItemRepository.findByProductId(productId).orElse(null);
-        if (cartItem != null) {
-            // Update quantity if item already exists
-            cartItem.setQuantity(cartItem.getQuantity() + quantity);
-        } else {
-            // Add new item if it doesn’t exist
-            cartItem = new CartItem(product, quantity);
-        }
+        CartItem cartItem = cartItemRepository.findByUserAndProduct(user, product)
+                .orElseGet(() -> new CartItem(user, product, 0));
 
+        cartItem.setQuantity(cartItem.getQuantity() + quantity);
         cartItemRepository.save(cartItem);
     }
 
     @Override
-    public double calculateCartTotal() {
-        return cartItemRepository.findAll().stream()
+    public void removeProductFromCart(User user, Long productId) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+
+        cartItemRepository.findByUserAndProduct(user, product)
+                .ifPresent(cartItemRepository::delete);
+    }
+
+    @Override
+    public BigDecimal calculateCartTotal(User user) {
+        return cartItemRepository.findByUser(user).stream()
                 .map(item -> item.getProduct().getPrice().multiply(BigDecimal.valueOf(item.getQuantity())))
-                .reduce(BigDecimal.ZERO, BigDecimal::add)
-                .doubleValue();
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }

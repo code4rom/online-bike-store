@@ -12,6 +12,10 @@ public class CartItem implements Serializable {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @ManyToOne
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
@@ -21,7 +25,8 @@ public class CartItem implements Serializable {
     // Constructors
     public CartItem() {}
 
-    public CartItem(Product product, int quantity) {
+    public CartItem(User user, Product product, int quantity) {
+        this.user = user;
         this.product = product;
         this.quantity = quantity;
     }
@@ -33,6 +38,14 @@ public class CartItem implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Product getProduct() {
