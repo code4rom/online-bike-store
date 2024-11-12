@@ -6,14 +6,7 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}" />
 </head>
 <body>
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Product List</title>
-    <link rel="stylesheet" th:href="@{/css/styles.css}" />
-</head>
-<body>
+
 
 <div th:insert="~{fragments/header :: header}"></div>
 
@@ -33,29 +26,6 @@
     </div>
 </div>
 
-<div th:insert="~{fragments/footer :: footer}"></div>
-
-</body>
-</html>
-
-<!-- Include the header fragment -->
-<div th:insert="~{fragments/header :: header}"></div>
-
-<div class="container">
-    <h1>Our Products</h1>
-
-    <!-- Loop through each product and style with .product-item -->
-    <div th:each="product : ${products}" class="product-item">
-        <img th:src="@{${product.imageUrl}}" alt="Image of [[${product.name}]]" class="product-image">
-
-        <h2 th:text="${product.name}">Product Name</h2>
-        <p th:text="${product.description}">Product Description</p>
-        <p class="price">Price: $<span th:text="${product.price}">0.00</span></p>
-        <a th:href="@{'/product-detail/' + ${product.id}}" class="button">View Details</a>
-    </div>
-</div>
-
-<!-- Include the footer fragment -->
 <div th:insert="~{fragments/footer :: footer}"></div>
 
 </body>
