@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Shopping Cart</title>
@@ -7,6 +7,7 @@
 </head>
 <body>
 <div th:insert="fragments/header :: header"></div>
+
 
 <div class="container">
     <h1>Your Shopping Cart</h1>
@@ -22,14 +23,22 @@
             <th>Quantity</th>
             <th>Price</th>
             <th>Total</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody th:each="item : ${cartItems}">
         <tr>
             <td th:text="${item.product.name}">Product Name</td>
-            <td th:text="${item.quantity}">1</td>
+            <td>
+                <button class="cart-action-button decrease" th:onclick="'window.location.href=\'/cart/decrease/' + ${item.product.id} + '\''">-</button>
+                <span th:text="${item.quantity}">1</span>
+                <button class="cart-action-button increase" th:onclick="'window.location.href=\'/cart/increase/' + ${item.product.id} + '\''">+</button>
+            </td>
             <td>$<span th:text="${item.product.price}">0.00</span></td>
             <td>$<span th:text="${item.product.price * item.quantity}">0.00</span></td>
+            <td>
+                <button class="cart-action-button remove" th:onclick="'window.location.href=\'/cart/remove/' + ${item.product.id} + '\''">Remove</button>
+            </td>
         </tr>
         </tbody>
     </table>

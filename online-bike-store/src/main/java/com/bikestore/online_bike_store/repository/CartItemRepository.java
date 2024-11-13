@@ -4,7 +4,6 @@ import com.bikestore.online_bike_store.model.CartItem;
 import com.bikestore.online_bike_store.model.Product;
 import com.bikestore.online_bike_store.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-
 import java.util.List;
 import java.util.Optional;
 

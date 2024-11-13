@@ -7,7 +7,8 @@ import com.bikestore.online_bike_store.repository.CartItemRepository;
 import com.bikestore.online_bike_store.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
+import java.util.Optional;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -29,6 +30,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
+    @Transactional
     public void addProductToCart(User user, Long productId, int quantity) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new RuntimeException("Product not found"));
@@ -48,8 +50,26 @@ public class CartServiceImpl implements CartService {
         cartItemRepository.findByUserAndProduct(user, product)
                 .ifPresent(cartItemRepository::delete);
     }
+    @Override
+    @Transactional
+    public void decreaseProductQuantity(User user, Long productId) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+
+        Optional<CartItem> cartItemOpt = cartItemRepository.findByUserAndProduct(user, product);
+        if (cartItemOpt.isPresent()) {
+            CartItem cartItem = cartItemOpt.get();
+            if (cartItem.getQuantity() > 1) {
+                cartItem.setQuantity(cartItem.getQuantity() - 1);
+                cartItemRepository.save(cartItem);
+            } else {
+                cartItemRepository.delete(cartItem); // Remove if quantity is 1
+            }
+        }
+    }
 
     @Override
+    @Transactional
     public BigDecimal calculateCartTotal(User user) {
         return cartItemRepository.findByUser(user).stream()
                 .map(item -> item.getProduct().getPrice().multiply(BigDecimal.valueOf(item.getQuantity())))

@@ -39,10 +39,10 @@ h1 {
 }
 
 .cart-table th, .cart-table td {
-    padding: 15px;
+    padding: 10px;
     text-align: center;
     border-bottom: 1px solid #ddd;
-    font-size: 1em;
+    font-size: 1.1em;
 }
 
 .cart-table th {
@@ -70,35 +70,7 @@ h1 {
     color: #3498db;
 }
 
-/* Proceed to Checkout Button */
-.button {
-    display: inline-block;
-    padding: 12px 25px;
-    background-color: #3498db;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    font-size: 1.1em;
-    text-align: center;
-    transition: background-color 0.3s;
-}
 
-.button:hover {
-    background-color: #2980b9;
-    transform: translateY(-2px);
-}
-
-/* Container for Main Content */
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: auto;
-    padding: 20px;
-    background-color: rgba(253, 253, 255, 0.9);
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
 
 /* Empty Cart Message */
 .empty-cart-message {
@@ -172,6 +144,7 @@ nav a:hover {
 
 .button:hover {
     background-color: #2980b9;
+    transform: translateY(-2px);
 }
 
 /* Banner Image Styling */
@@ -199,7 +172,7 @@ nav a:hover {
 }
 
 .product-item {
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.6);
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 15px;
@@ -231,7 +204,7 @@ nav a:hover {
     max-width: 800px;
     margin: auto;
     padding: 20px;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.7);
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -381,21 +354,23 @@ footer {
     color: #007acc;
     text-decoration: underline;
 }
-/* Cart Table
-.cart-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
+.cart-action-button.decrease, .cart-action-button.increase {
+    padding: 5px 10px;
+    font-size: 1em;
+    background-color: rgba(255, 255, 255, 0.33);
+    border-radius: 3px;
+    margin: 0 5px;
+}
+.cart-action-button.increase:hover {
+    background-color: #16a818;
+}
+.cart-action-button.decrease:hover {
+    background-color: #1a4ed5;
+}
+.cart-action-button.remove {
+    background-color: rgba(213, 69, 69, 0.33);
 }
 
-.cart-table th, .cart-table td {
-    padding: 10px;
-    text-align: center;
-    border-bottom: 1px solid #ddd;
+.cart-action-button.remove:hover {
+    background-color: #c0392b;
 }
-
-.cart-table th {
-    background-color: #f1f1f1;
-    font-weight: bold;
-}
-*/
