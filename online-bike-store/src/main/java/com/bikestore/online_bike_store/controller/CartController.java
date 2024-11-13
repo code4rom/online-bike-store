@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.ModelAttribute;
 import java.math.BigDecimal;
 
 @Controller
@@ -61,5 +61,15 @@ public class CartController {
         User user = userService.findByUsername(userDetails.getUsername()).orElseThrow();
         cartService.removeProductFromCart(user, productId);
         return "redirect:/cart";
+    }
+    @ModelAttribute("cartItemCount")
+    public Integer getCartItemCount(@AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails != null) {
+            User user = userService.findByUsername(userDetails.getUsername()).orElse(null);
+            if (user != null) {
+                return cartService.getCartItemsByUser(user).size();
+            }
+        }
+        return 0; // Show zero if not logged in or cart is empty
     }
 }

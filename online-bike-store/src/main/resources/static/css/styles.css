@@ -374,3 +374,25 @@ footer {
 .cart-action-button.remove:hover {
     background-color: #c0392b;
 }
+/* Cart Link Styling */
+.cart-link {
+    position: relative;
+    font-size: 1.2em;
+    margin-left: 15px;
+    color: #3498db;
+    font-weight: bold;
+}
+.cart-link:hover {
+    color: #2980b9;
+}
+
+/* Cart Item Count Badge */
+.cart-count {
+    background-color: #e74c3c;
+    color: #fff;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 0.8em;
+    vertical-align: super;
+    margin-left: 5px;
+}
