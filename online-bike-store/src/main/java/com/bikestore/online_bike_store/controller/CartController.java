@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.ModelAttribute;
+
 import java.math.BigDecimal;
 
 @Controller
@@ -25,8 +25,13 @@ public class CartController {
         this.userService = userService;
     }
 
+    // View Cart
     @GetMapping
     public String viewCart(@AuthenticationPrincipal UserDetails userDetails, Model model) {
+        if (userDetails == null) {
+            return "redirect:/login"; // Redirect to login if user is not authenticated
+        }
+
         User user = userService.findByUsername(userDetails.getUsername())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
@@ -35,33 +40,60 @@ public class CartController {
         return "cart";
     }
 
+    // Add Item to Cart
     @PostMapping("/add")
-    public String addToCart(@AuthenticationPrincipal UserDetails userDetails, @RequestParam("productId") Long productId, @RequestParam("quantity") int quantity) {
-        User user = userService.findByUsername(userDetails.getUsername()).orElseThrow(() -> new RuntimeException("User not found"));
+    public String addToCart(@AuthenticationPrincipal UserDetails userDetails,
+                            @RequestParam("productId") Long productId,
+                            @RequestParam("quantity") int quantity) {
+
+        if (userDetails == null) {
+            return "redirect:/login"; // Redirect to login if user is not authenticated
+        }
+
+        User user = userService.findByUsername(userDetails.getUsername())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
         cartService.addProductToCart(user, productId, quantity);
         return "redirect:/cart";
     }
 
+    // Increase Quantity
     @GetMapping("/increase/{productId}")
     public String increaseQuantity(@PathVariable Long productId, @AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails == null) {
+            return "redirect:/login";
+        }
+
         User user = userService.findByUsername(userDetails.getUsername()).orElseThrow();
         cartService.addProductToCart(user, productId, 1); // Increase quantity by 1
         return "redirect:/cart";
     }
 
+    // Decrease Quantity
     @GetMapping("/decrease/{productId}")
     public String decreaseQuantity(@PathVariable Long productId, @AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails == null) {
+            return "redirect:/login";
+        }
+
         User user = userService.findByUsername(userDetails.getUsername()).orElseThrow();
         cartService.decreaseProductQuantity(user, productId);
         return "redirect:/cart";
     }
 
+    // Remove Item from Cart
     @GetMapping("/remove/{productId}")
     public String removeItem(@PathVariable Long productId, @AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails == null) {
+            return "redirect:/login";
+        }
+
         User user = userService.findByUsername(userDetails.getUsername()).orElseThrow();
         cartService.removeProductFromCart(user, productId);
         return "redirect:/cart";
     }
+
+    // Model Attribute for Cart Item Count (Used in Header)
     @ModelAttribute("cartItemCount")
     public Integer getCartItemCount(@AuthenticationPrincipal UserDetails userDetails) {
         if (userDetails != null) {

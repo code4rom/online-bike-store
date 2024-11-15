@@ -21,7 +21,7 @@ public class ProductController {
     }
 
     // Display all products on the product list page
-    @GetMapping("/products")  // Ensure this matches the intended URL
+    @GetMapping("/products")
     public String productList(Model model) {
         model.addAttribute("products", productService.findAllProducts());
         return "product-list";  // Maps to product-list.html in templates/
