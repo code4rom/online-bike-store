@@ -8,32 +8,34 @@
 <body>
 <div th:insert="fragments/header :: header"></div>
 
-<h1>Checkout</h1>
+<div class="container checkout-container">
+    <h1>Checkout</h1>
 
-<form action="#" th:action="@{/checkout}" th:object="${order}" method="post">
-    <fieldset>
-        <legend>Shipping Information</legend>
-        <label for="address">Street Address:</label>
-        <input type="text" id="address" th:field="*{shippingAddress.street}" required/>
+    <form action="#" th:action="@{/checkout}" th:object="${order}" method="post" class="checkout-form">
+        <fieldset>
+            <legend>Shipping Information</legend>
+            <label for="address">Street Address:</label>
+            <input type="text" id="address" th:field="*{shippingAddress.street}" placeholder="Enter your street address" required/>
 
-        <label for="city">City:</label>
-        <input type="text" id="city" th:field="*{city}" required/>
+            <label for="city">City:</label>
+            <input type="text" id="city" th:field="*{city}" placeholder="Enter your city" required/>
 
-        <label for="postalCode">Postal Code:</label>
-        <input type="text" id="postalCode" th:field="*{postalCode}" required/>
-    </fieldset>
+            <label for="postalCode">Postal Code:</label>
+            <input type="text" id="postalCode" th:field="*{postalCode}" placeholder="Enter your postal code" required/>
+        </fieldset>
 
-    <fieldset>
-        <legend>Payment Information</legend>
-        <label for="cardNumber">Card Number:</label>
-        <input type="text" id="cardNumber" th:field="*{payment.cardNumber}" required/>
+        <fieldset>
+            <legend>Payment Information</legend>
+            <label for="cardNumber">Card Number:</label>
+            <input type="text" id="cardNumber" th:field="*{payment.cardNumber}" placeholder="1234 5678 9012 3456" required/>
 
-        <label for="expiryDate">Expiry Date:</label>
-        <input type="text" id="expiryDate" th:field="*{payment.expiryDate}" required/>
-    </fieldset>
+            <label for="expiryDate">Expiry Date:</label>
+            <input type="text" id="expiryDate" th:field="*{payment.expiryDate}" placeholder="MM/YY" required/>
+        </fieldset>
 
-    <button type="submit">Place Order</button>
-</form>
+        <button type="submit" class="checkout-button">Place Order</button>
+    </form>
+</div>
 
 <div th:insert="fragments/footer :: footer"></div>
 </body>
