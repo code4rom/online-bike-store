@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Orders</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<div th:insert="fragments/header :: header"></div>
+
+<div class="container">
+    <h1>Your Orders</h1>
+
+    <div th:if="${orders.isEmpty()}">
+        <p>You have not placed any orders yet.</p>
+    </div>
+
+    <table th:if="${!orders.isEmpty()}" class="order-table">
+        <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Shipping Address</th>
+            <th>City</th>
+            <th>Postal Code</th>
+            <th>Payment Info</th>
+        </tr>
+        </thead>
+        <tbody th:each="order : ${orders}">
+        <tr>
+            <td th:text="${order.id}"></td>
+            <td th:text="${order.shippingAddress.street}"></td>
+            <td th:text="${order.city}"></td>
+            <td th:text="${order.postalCode}"></td>
+            <td th:text="${order.payment.cardNumber}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div th:insert="fragments/footer :: footer"></div>
+</body>
+</html>

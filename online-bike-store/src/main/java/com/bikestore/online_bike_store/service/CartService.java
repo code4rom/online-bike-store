@@ -11,5 +11,7 @@ public interface CartService {
     void addProductToCart(User user, Long productId, int quantity);
     void removeProductFromCart(User user, Long productId);
     void decreaseProductQuantity(User user, Long productId);
+    void clearCart(User user);
+
     BigDecimal calculateCartTotal(User user);
 }

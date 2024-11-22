@@ -3,40 +3,55 @@ package com.bikestore.online_bike_store.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "customer_order")
 public class CustomerOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    private Address shippingAddress;
+    @ManyToOne
+    @JoinColumn(name = "address_id") // Maps to the "address_id" column in the "customer_order" table
+    private Address address;
 
-    private String city;
-    private String postalCode;
-
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
+    @JoinColumn(name = "payment_id")
     private Payment payment;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")  // Foreign key column in Order table
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     // Getters and Setters
-    public Long getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
-    public Address getShippingAddress() { return shippingAddress; }
-    public void setShippingAddress(Address shippingAddress) { this.shippingAddress = shippingAddress; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getCity() { return city; }
-    public void setCity(String city) { this.city = city; }
+    public Address getAddress() {
+        return address;
+    }
 
-    public String getPostalCode() { return postalCode; }
-    public void setPostalCode(String postalCode) { this.postalCode = postalCode; }
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 
-    public Payment getPayment() { return payment; }
-    public void setPayment(Payment payment) { this.payment = payment; }
+    public Payment getPayment() {
+        return payment;
+    }
 
-    public User getUser() { return user; }
-    public void setUser(User user) { this.user = user; }
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

@@ -1,7 +1,9 @@
 package com.bikestore.online_bike_store.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name = "cart_items")
@@ -20,11 +22,13 @@ public class CartItem implements Serializable {
     private Product product;
 
     @Column(nullable = false)
+    @Min(1)
     private int quantity;
 
-    // Constructors
+    // Default constructor
     public CartItem() {}
 
+    // Constructor with User, Product, and Quantity
     public CartItem(User user, Product product, int quantity) {
         this.user = user;
         this.product = product;
@@ -61,6 +65,23 @@ public class CartItem implements Serializable {
     }
 
     public void setQuantity(int quantity) {
+        if (quantity < 1) {
+            throw new IllegalArgumentException("Quantity must be at least 1");
+        }
         this.quantity = quantity;
+    }
+
+    // equals and hashCode
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CartItem cartItem = (CartItem) o;
+        return Objects.equals(id, cartItem.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

@@ -3,25 +3,27 @@ package com.bikestore.online_bike_store.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "user")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
     private String username;
+
+    @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false, unique = true)
     private String email;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id", referencedColumnName = "id")
-    private Address address;
-
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "role_id")
+    @ManyToOne
+    @JoinColumn(name = "role_id", nullable = false) // Maps to the "role_id" column in the "user" table
     private Role role;
 
-    // Getters and setters
+    // Getters and Setters
     public Long getId() {
         return id;
     }

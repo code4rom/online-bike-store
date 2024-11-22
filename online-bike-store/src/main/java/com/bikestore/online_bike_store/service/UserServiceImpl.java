@@ -1,77 +1,50 @@
 package com.bikestore.online_bike_store.service;
 
+import com.bikestore.online_bike_store.model.Role;
 import com.bikestore.online_bike_store.model.User;
+import com.bikestore.online_bike_store.repository.RoleRepository;
 import com.bikestore.online_bike_store.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import java.util.Collections;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Optional;
-import java.util.Set;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 
 @Service
-public class UserServiceImpl implements UserService, UserDetailsService {
+public class UserServiceImpl implements UserService {
+
+    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository,
+                           RoleRepository roleRepository,
                            PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
     @Override
-    public void registerUser(User user) {
-        if (user.getPassword() == null || user.getPassword().trim().isEmpty()) {
-            throw new IllegalArgumentException("Password cannot be empty");
-        }
-        // Encrypt the password before saving the user
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
-    }
-
-    public boolean authenticateUser(String username, String rawPassword) {
-        Optional<User> userOpt = userRepository.findByUsername(username);
-        if (userOpt.isPresent()) {
-            User user = userOpt.get();
-            return passwordEncoder.matches(rawPassword, user.getPassword());
-        }
-        return false;
+    public Optional<User> findById(Long id) {
+        return userRepository.findById(id);
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
-
-        // Ensure the user has a password set
-        if (user.getPassword() == null || user.getPassword().trim().isEmpty()) {
-            throw new IllegalStateException("User password is not set properly");
-        }
-
-
-        return org.springframework.security.core.userdetails.User.builder()
-                .username(user.getUsername())
-                .password(user.getPassword())
-
-                .accountExpired(false)
-                .accountLocked(false)
-                .credentialsExpired(false)
-                .disabled(false)
-                .build();
+    public void deleteUserById(Long id) {
+        userRepository.deleteById(id);
     }
 
-    // Other methods remain the same...
+    @Override
+    public Optional<User> findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
     @Override
     public boolean existsByUsername(String username) {
         return userRepository.existsByUsername(username);
@@ -81,27 +54,45 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public boolean existsByEmail(String email) {
         return userRepository.existsByEmail(email);
     }
-
     @Override
-    public Optional<User> findByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
+    public void registerUser(User user) {
+        // Log the registration attempt
+        logger.debug("Registering user: " + user.getUsername());
 
-    @Override
-    public Optional<User> findById(Long id) {
-        return userRepository.findById(id);
+        // Determine the role
+        Role role;
+        if ("admin".equalsIgnoreCase(user.getUsername())) {
+            role = roleRepository.findByName("ROLE_ADMIN")
+                    .orElseGet(() -> {
+                        Role newAdminRole = new Role("ROLE_ADMIN");
+                        return roleRepository.save(newAdminRole);
+                    });
+        } else {
+            role = roleRepository.findByName("ROLE_USER")
+                    .orElseGet(() -> {
+                        Role newUserRole = new Role("ROLE_USER");
+                        return roleRepository.save(newUserRole);
+                    });
+        }
+
+        // Set the role
+        user.setRole(role);
+
+        // Encrypt password
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        // Save the user
+        try {
+            userRepository.save(user);
+            logger.debug("User registered successfully: " + user.getUsername());
+        } catch (Exception e) {
+            logger.error("Error registering user", e);
+            throw new RuntimeException("Could not register user", e);
+        }
     }
 
     @Override
     public void saveUser(User user) {
-        if (user.getPassword() != null && !user.getPassword().startsWith("$2a$")) {
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-        }
         userRepository.save(user);
-    }
-
-    @Override
-    public void deleteUserById(Long id) {
-        userRepository.deleteById(id);
     }
 }

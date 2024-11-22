@@ -4,21 +4,19 @@ package com.bikestore.online_bike_store.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "address")
 public class Address {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column(nullable = false)
     private String street;
+    @Column(nullable = false)
     private String city;
-    private String state;
-    private String country;
+    @Column(nullable = false)
     private String zipCode;
 
-    @OneToOne(mappedBy = "address")
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
-    private User user;
 
 // Getters and setters
 
@@ -31,14 +29,6 @@ public class Address {
 
     public String getCity() {
         return city;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public String getCountry() {
-        return country;
     }
 
     public String getZipCode() {
@@ -55,14 +45,6 @@ public class Address {
 
     public void setCity(String city) {
         this.city = city;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
     }
 
     public void setZipCode(String zipCode) {

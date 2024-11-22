@@ -9,36 +9,31 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/addresses")
+@RequestMapping("/address")
 public class AddressController {
 
     private final AddressService addressService;
 
-    // Constructor-based dependency injection for the AddressService.
     @Autowired
     public AddressController(AddressService addressService) {
         this.addressService = addressService;
     }
 
-    // Endpoint to retrieve all addresses.
     @GetMapping
     public List<Address> getAllAddresses() {
         return addressService.findAllAddresses();
     }
 
-    // Endpoint to retrieve an address by ID.
     @GetMapping("/{id}")
     public Optional<Address> getAddressById(@PathVariable Long id) {
         return addressService.findAddressById(id);
     }
 
-    // Endpoint to create or update an address.
     @PostMapping
     public void saveAddress(@RequestBody Address address) {
-        addressService.saveAddress(address);
+        addressService.saveAddress(address); // Corrected method name
     }
 
-    // Endpoint to delete an address by ID.
     @DeleteMapping("/{id}")
     public void deleteAddress(@PathVariable Long id) {
         addressService.deleteAddressById(id);

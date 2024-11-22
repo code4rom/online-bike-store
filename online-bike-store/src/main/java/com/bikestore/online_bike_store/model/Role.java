@@ -3,15 +3,24 @@ package com.bikestore.online_bike_store.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "role")
 public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name; //  "ROLE_USER" or "ROLE_ADMIN"
+    @Column(nullable = false, unique = true)
+    private String name;
 
-    // Getters and setters
+    // Constructors
+   public Role() {}
+
+    public Role(String name) {
+        this.name = name;
+    }
+
+    // Getters and Setters
     public Long getId() {
         return id;
     }

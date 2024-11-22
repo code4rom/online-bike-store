@@ -28,6 +28,12 @@ public class CartServiceImpl implements CartService {
     public List<CartItem> getCartItemsByUser(User user) {
         return cartItemRepository.findByUser(user);
     }
+    @Override
+    @Transactional
+    public void clearCart(User user) {
+        List<CartItem> cartItems = cartItemRepository.findByUser(user);
+        cartItemRepository.deleteAll(cartItems); // Clear all cart items for the user
+    }
 
     @Override
     @Transactional

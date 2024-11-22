@@ -22,14 +22,12 @@ public class RegisterController {
         this.userService = userService;
     }
 
-    // Display the registration form
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
-        model.addAttribute("user", new User()); // Bind an empty User object for the form
-        return "register"; // Display the register.html template
+        model.addAttribute("user", new User());
+        return "register"; // Register page
     }
 
-    // Handle form submission and registration logic
     @PostMapping("/register")
     public String registerUser(
             @Valid @ModelAttribute("user") User user,
@@ -37,11 +35,10 @@ public class RegisterController {
             Model model) {
 
         if (result.hasErrors()) {
-            // If there are validation errors, return to the registration form
-            return "register";
+            return "register"; // If errors, return to registration page
         }
 
-        // Check if the username or email is already taken
+        // Check if username or email already exists
         if (userService.existsByUsername(user.getUsername())) {
             model.addAttribute("usernameError", "Username is already taken");
             return "register";
@@ -51,8 +48,8 @@ public class RegisterController {
             return "register";
         }
 
-        // Save the new user
-        userService.saveUser(user);
-        return "redirect:/login"; // Redirect to the login page upon successful registration
+        // Register the user with the correct role
+         userService.registerUser(user);
+        return "redirect:/login"; // Redirect to login page
     }
 }

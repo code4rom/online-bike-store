@@ -19,6 +19,8 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
+            //           .antMatchers("/admin/**").hasRole("ADMIN") // Only Admin role can access
+            //            .antMatchers("/user/**").hasRole("USER")   // User-specific endpoints
                         .requestMatchers("/", "/home", "/index", "/register", "/login", "/css/**", "/js/**", "/images/**", "/products", "/cart/**", "/product-detail/**", "/error")
                         .permitAll()
                         .anyRequest().authenticated()

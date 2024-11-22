@@ -1,6 +1,7 @@
 package com.bikestore.online_bike_store.service;
 
 import com.bikestore.online_bike_store.model.CustomerOrder;
+import com.bikestore.online_bike_store.model.User;
 import com.bikestore.online_bike_store.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,10 @@ public class OrderServiceImpl implements OrderService {
         this.orderRepository = orderRepository;
     }
 
+    @Override
+    public List<CustomerOrder> findOrdersByUser(User user) {
+        return orderRepository.findByUser(user);
+    }
     @Override
     public List<CustomerOrder> findAllOrders() {
         return orderRepository.findAll();
