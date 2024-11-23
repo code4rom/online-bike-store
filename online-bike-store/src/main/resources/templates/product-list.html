@@ -15,7 +15,7 @@
     <!-- Centered grid for product items -->
     <div class="product-container">
         <div th:each="product : ${products}" class="product-item">
-            <img th:src="@{${product.imageUrl}}" alt="Image of [[${product.name}]]" class="product-image">
+            <img th:src="${product.imageUrl}" alt="Image of [[${product.name}]]" class="product-image">
 
             <h2 th:text="${product.name}">Product Name</h2>
             <p th:text="${product.description}">Product Description</p>

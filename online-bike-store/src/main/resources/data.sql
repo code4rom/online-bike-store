@@ -16,7 +16,7 @@ INSERT INTO category (id, name) VALUES
                                     (4, 'Electric');
 
 -- Insert products
-INSERT INTO product (type, name, price, description, stock_quantity, category_id, imageUrl) VALUES
+INSERT INTO product (type, name, price, description, stock_quantity, category_id, image_Url) VALUES
                                                                                                 -- Mountain Bikes
                                                                                                 ('Mountain', 'Mountain Bike X1', 750.00, 'Durable mountain bike for rough terrains', 10, 1, '/images/products/mountain_durable.webp'),
                                                                                                ('Mountain', 'Mountain Bike X2', 850.00, 'Lightweight mountain bike for climbing', 8, 1, '/images/products/mountain_lightweight.webp'),

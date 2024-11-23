@@ -10,7 +10,7 @@
 <div th:insert="~{fragments/header :: header}"></div>
 
 <div class="product-detail-container">
-    <img th:src="@{${product.imageUrl}}" alt="Image of [[${product.name}]]" class="product-image">
+    <img th:src="${product.imageUrl}" alt="Image of [[${product.name}]]" class="product-image">
 
     <h1 th:text="${product.name}">Product Name</h1>
     <p th:text="${product.description}">Product Description</p>

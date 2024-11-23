@@ -15,7 +15,7 @@ public class Product {
     private BigDecimal price;
     private int stockQuantity;
     private String type;
-    private String imageUrl;
+    private String image_Url;
 
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")
@@ -25,11 +25,11 @@ public class Product {
     private Set<OrderItem> orderItems;
 
     public String getImageUrl() {
-        return imageUrl;
+        return image_Url;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImageUrl(String image_Url) {
+        this.image_Url = image_Url;
     }
 
     public Long getId() {
