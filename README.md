@@ -1,5 +1,5 @@
 Online Bike Store 
-An e-commerce platform for purchasing bikes with secure authentication and an intuitive shopping experience.
+My study project -ecommerce platform for purchasing bikes with secure authentication and an intuitive shopping experience.
 
 Features
 Product Browsing:
