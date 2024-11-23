@@ -1,7 +1,6 @@
 package com.bikestore.online_bike_store.config;
 
 import com.bikestore.online_bike_store.service.CustomUserDetailsService;
-import org.springframework.context.annotation.Lazy;  // Change this import
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -10,15 +9,15 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 public class SecurityConfig {
 
     private final CustomUserDetailsService userDetailsService;
-    private final PasswordEncoder passwordEncoder;  // Add this field
+    private final PasswordEncoder passwordEncoder;
 
-    public SecurityConfig(@Lazy CustomUserDetailsService userDetailsService,
-                          PasswordEncoder passwordEncoder) {  // Inject PasswordEncoder
+    public SecurityConfig(CustomUserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
         this.userDetailsService = userDetailsService;
         this.passwordEncoder = passwordEncoder;
     }
@@ -27,7 +26,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/home", "/register", "/login", "/css/**", "/js/**", "/images/**").permitAll()
+                        .requestMatchers("/", "/home", "/register", "/login", "/css/**", "/products/", "/product-detail/**", "/error/", "/images/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
@@ -38,11 +37,12 @@ public class SecurityConfig {
                         .permitAll()
                 )
                 .logout(logout -> logout
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login?logout=true")
-                        .invalidateHttpSession(true)
-                        .clearAuthentication(true)
-                        .permitAll()
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                        .logoutSuccessUrl("/login?logout=true") // Redirect after successful logout
+                        .invalidateHttpSession(true) // Clear session data
+                        .clearAuthentication(true) // Clear authentication context
+                        .deleteCookies("JSESSIONID") // Optional: Clear session cookie
+                        .permitAll() // Make logout publicly accessible
                 );
 
         return http.build();
@@ -59,7 +59,7 @@ public class SecurityConfig {
     public DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(userDetailsService);
-        provider.setPasswordEncoder(passwordEncoder);  // Use the injected passwordEncoder
+        provider.setPasswordEncoder(passwordEncoder);
         return provider;
     }
 }
