@@ -25,7 +25,6 @@ public class CustomerOrder {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }

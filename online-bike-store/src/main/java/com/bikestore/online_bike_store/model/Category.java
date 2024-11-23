@@ -16,8 +16,6 @@ public class Category {
     @OneToMany(mappedBy = "category")
     private Set<Product> products;
 
-    // Getters and setters
-
     public Long getId() {
         return id;
     }

@@ -31,7 +31,7 @@ public class AddressController {
 
     @PostMapping
     public void saveAddress(@RequestBody Address address) {
-        addressService.saveAddress(address); // Corrected method name
+        addressService.saveAddress(address);
     }
 
     @DeleteMapping("/{id}")

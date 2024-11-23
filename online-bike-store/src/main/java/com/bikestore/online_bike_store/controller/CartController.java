@@ -29,7 +29,7 @@ public class CartController {
     @GetMapping
     public String viewCart(@AuthenticationPrincipal UserDetails userDetails, Model model) {
         if (userDetails == null) {
-            return "redirect:/login"; // Redirect to login if user is not authenticated
+            return "redirect:/login"; // Redirect to login if user  not authenticated
         }
 
         User user = userService.findByUsername(userDetails.getUsername())
@@ -47,7 +47,7 @@ public class CartController {
                             @RequestParam("quantity") int quantity) {
 
         if (userDetails == null) {
-            return "redirect:/login"; // Redirect to login if user is not authenticated
+            return "redirect:/login"; // Redirect to login if user not authenticated
         }
 
         User user = userService.findByUsername(userDetails.getUsername())

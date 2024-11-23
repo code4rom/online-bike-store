@@ -28,14 +28,12 @@ public class CartItem implements Serializable {
     // Default constructor
     public CartItem() {}
 
-    // Constructor with User, Product, and Quantity
     public CartItem(User user, Product product, int quantity) {
         this.user = user;
         this.product = product;
         this.quantity = quantity;
     }
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -71,7 +69,6 @@ public class CartItem implements Serializable {
         this.quantity = quantity;
     }
 
-    // equals and hashCode
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

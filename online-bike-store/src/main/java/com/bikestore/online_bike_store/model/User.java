@@ -23,7 +23,6 @@ public class User {
     @JoinColumn(name = "role_id", nullable = false) // Maps to the "role_id" column in the "user" table
     private Role role;
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }

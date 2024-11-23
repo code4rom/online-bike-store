@@ -41,7 +41,7 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/login?logout=true") // Redirect after successful logout
                         .invalidateHttpSession(true) // Clear session data
                         .clearAuthentication(true) // Clear authentication context
-                        .deleteCookies("JSESSIONID") // Optional: Clear session cookie
+                        .deleteCookies("JSESSIONID") //  Clear session cookie
                         .permitAll() // Make logout publicly accessible
                 );
 

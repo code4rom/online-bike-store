@@ -5,10 +5,6 @@ INSERT INTO role (id, name) VALUES
                                 (1, 'ROLE_ADMIN'),
                                 (2, 'ROLE_USER');
 
--- Insert users and assign roles
--- Replace `{bcrypt}hashed_password` with actual bcrypt-hashed passwords
-
--- Insert categories
 INSERT INTO category (id, name) VALUES
                                     (1, 'Mountain'),
                                     (2, 'Road'),

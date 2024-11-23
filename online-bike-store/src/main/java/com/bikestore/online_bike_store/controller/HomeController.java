@@ -25,7 +25,6 @@ public class HomeController {
         List<Product> products = productService.findAllProducts();
         // Add the list of products to the model
         model.addAttribute("products", products);
-        // Return the view name "index" to load index.html
         return "index";
     }
 }

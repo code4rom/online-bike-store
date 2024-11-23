@@ -14,31 +14,25 @@ public class OrderItemController {
 
     private final OrderItemService orderItemService;
 
-    // Constructor-based dependency injection for the OrderItemService.
-    @Autowired
+      @Autowired
     public OrderItemController(OrderItemService orderItemService) {
         this.orderItemService = orderItemService;
     }
 
-    // Endpoint to retrieve all order items.
-    @GetMapping
+      @GetMapping
     public List<OrderItem> getAllOrderItems() {
         return orderItemService.findAllOrderItems();
     }
 
-    // Endpoint to retrieve an order item by ID.
-    @GetMapping("/{id}")
+     @GetMapping("/{id}")
     public Optional<OrderItem> getOrderItemById(@PathVariable Long id) {
         return orderItemService.findOrderItemById(id);
     }
-
-    // Endpoint to create or update an order item.
     @PostMapping
     public void saveOrderItem(@RequestBody OrderItem orderItem) {
         orderItemService.saveOrderItem(orderItem);
     }
 
-    // Endpoint to delete an order item by ID.
     @DeleteMapping("/{id}")
     public void deleteOrderItem(@PathVariable Long id) {
         orderItemService.deleteOrderItemById(id);

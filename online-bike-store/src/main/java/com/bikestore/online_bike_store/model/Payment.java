@@ -11,7 +11,7 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private BigDecimal amount; // Ensure this column is NOT NULL
+    private BigDecimal amount;
 
     private String cardNumber;
     private String expiryDate;

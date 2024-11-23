@@ -14,19 +14,17 @@ public class PaymentController {
 
     private final PaymentService paymentService;
 
-    // Constructor-based dependency injection for the PaymentService.
-    @Autowired
+      @Autowired
     public PaymentController(PaymentService paymentService) {
         this.paymentService = paymentService;
     }
 
-    // Endpoint to retrieve all payments.
     @GetMapping
     public List<Payment> getAllPayments() {
         return paymentService.findAllPayments();
     }
 
-    // Endpoint to retrieve a payment by ID.
+
     @GetMapping("/{id}")
     public Optional<Payment> getPaymentById(@PathVariable Long id) {
         return paymentService.findPaymentById(id);

@@ -59,7 +59,6 @@ public class UserServiceImpl implements UserService {
         // Log the registration attempt
         logger.debug("Registering user: " + user.getUsername());
 
-        // Determine the role
         Role role;
         if ("admin".equalsIgnoreCase(user.getUsername())) {
             role = roleRepository.findByName("ROLE_ADMIN")
@@ -75,13 +74,10 @@ public class UserServiceImpl implements UserService {
                     });
         }
 
-        // Set the role
         user.setRole(role);
 
-        // Encrypt password
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        // Save the user
         try {
             userRepository.save(user);
             logger.debug("User registered successfully: " + user.getUsername());

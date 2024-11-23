@@ -35,10 +35,9 @@ public class RegisterController {
             Model model) {
 
         if (result.hasErrors()) {
-            return "register"; // If errors, return to registration page
+            return "register";
         }
 
-        // Check if username or email already exists
         if (userService.existsByUsername(user.getUsername())) {
             model.addAttribute("usernameError", "Username is already taken");
             return "register";
@@ -48,7 +47,6 @@ public class RegisterController {
             return "register";
         }
 
-        // Register the user with the correct role
          userService.registerUser(user);
         return "redirect:/login"; // Redirect to login page
     }

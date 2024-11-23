@@ -18,8 +18,6 @@ public class Address {
     private String zipCode;
 
 
-// Getters and setters
-
     public Long getId() {
         return id;
     }
