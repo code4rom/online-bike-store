@@ -1,6 +1,8 @@
 package com.bikestore.online_bike_store.controller;
 
+import com.bikestore.online_bike_store.model.Address;
 import com.bikestore.online_bike_store.model.CustomerOrder;
+import com.bikestore.online_bike_store.model.Payment;
 import com.bikestore.online_bike_store.model.User;
 import com.bikestore.online_bike_store.service.CartService;
 import com.bikestore.online_bike_store.service.OrderService;
@@ -34,7 +36,10 @@ public class CheckoutController {
 
     @GetMapping("/checkout")
     public String checkoutPage(Model model) {
-        model.addAttribute("order", new CustomerOrder());
+        CustomerOrder order = new CustomerOrder();
+        order.setAddress(new Address()); // Initialize Address
+        order.setPayment(new Payment()); // Initialize Payment
+        model.addAttribute("order", order);
         return "checkout";
     }
 
@@ -43,33 +48,21 @@ public class CheckoutController {
                                   @ModelAttribute @Valid CustomerOrder order,
                                   BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "checkout"; // Return to the checkout page with validation errors
+            return "checkout";
         }
 
-        // Fetch the logged-in user
         User user = userService.findByUsername(userDetails.getUsername())
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-
-        // Manage the payment details
         BigDecimal cartTotal = cartService.calculateCartTotal(user);
-        if (order.getPayment() == null) {
-            throw new RuntimeException("Payment information must be provided.");
-        }
         order.getPayment().setAmount(cartTotal);
-
-        // Associate the order with the user
         order.setUser(user);
 
-        // Save the order
         orderService.saveOrder(order);
-
-        // Clear the cart after the order is placed
         cartService.clearCart(user);
 
         return "redirect:/checkout/confirmation";
     }
-
 
     @GetMapping("/checkout/confirmation")
     public String confirmationPage() {

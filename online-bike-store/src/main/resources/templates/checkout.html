@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/css/styles.css"/>
 </head>
 <body>
-<div th:insert="fragments/header :: header"></div>
+<div th:insert="~{fragments/header :: header}"></div>
 
 <div class="container checkout-container">
     <h1>Checkout</h1>
@@ -14,14 +14,14 @@
     <form action="#" th:action="@{/checkout}" th:object="${order}" method="post" class="checkout-form">
         <fieldset>
             <legend>Shipping Information</legend>
-            <label for="address">Street Address:</label>
-            <input type="text" id="address" th:field="*{shippingAddress.street}" placeholder="Enter your street address" required/>
+            <label for="street">Street Address:</label>
+            <input type="text" id="street" th:field="*{address.street}" placeholder="Enter your street address" required/>
 
             <label for="city">City:</label>
-            <input type="text" id="city" th:field="*{city}" placeholder="Enter your city" required/>
+            <input type="text" id="city" th:field="*{address.city}" placeholder="Enter your city" required/>
 
-            <label for="postalCode">Postal Code:</label>
-            <input type="text" id="postalCode" th:field="*{postalCode}" placeholder="Enter your postal code" required/>
+            <label for="zipCode">Postal Code:</label>
+            <input type="text" id="zipCode" th:field="*{address.zipCode}" placeholder="Enter your postal code" required/>
         </fieldset>
 
         <fieldset>
@@ -37,6 +37,6 @@
     </form>
 </div>
 
-<div th:insert="fragments/footer :: footer"></div>
+<div th:insert="~{fragments/footer :: footer}"></div>
 </body>
 </html>

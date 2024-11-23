@@ -1,6 +1,7 @@
 package com.bikestore.online_bike_store.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 
 @Entity
 @Table(name = "customer_order")
@@ -10,12 +11,14 @@ public class CustomerOrder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "address_id") // Maps to the "address_id" column in the "customer_order" table
+    @Valid
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", nullable = false) // Maps to the "address_id" column
     private Address address;
 
-    @ManyToOne
-    @JoinColumn(name = "payment_id")
+    @Valid
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "payment_id", nullable = false) // Maps to the "payment_id" column
     private Payment payment;
 
     @ManyToOne
