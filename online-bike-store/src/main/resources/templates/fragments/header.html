@@ -16,12 +16,13 @@
       <span>Welcome, <span th:text="${#authentication.name}">User</span>!</span>
 
       <!-- Show "Admin" link for admin users only -->
-      <a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" th:href="@{/admin}">Admin</a>
+      <a th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" th:href="@{/dashboard}">Admin dashboard</a>
 
       <!-- Cart link with item count -->
       <a th:href="@{/cart}" class="cart-link">
-        🛒 Cart
+
         <span th:if="${cartItemCount > 0}" th:text="${cartItemCount}" class="cart-count"></span>
+
       </a>
 
       <a th:href="@{/logout}">Logout</a>
