@@ -13,11 +13,55 @@
     <h1>Admin Dashboard</h1>
     <p th:text="${message}"></p>
 
-    <div class="dashboard-sections">
-        <a th:href="@{/users}" class="dashboard-link">Manage Users</a>
-        <a th:href="@{/orders}" class="dashboard-link">View Orders</a>
-        <a th:href="@{/products}" class="dashboard-link">Manage Products</a>
-    </div>
+    <!-- Registered Users Table -->
+    <section>
+        <h2>Registered Users</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.role.name}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Products Table -->
+    <section>
+        <h2>Manage Products</h2>
+        <form th:action="@{/dashboard/update-products}" method="post">
+            <table>
+                <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Price</th>
+                    <th>Stock Quantity</th>
+                    <th>Update Quantity</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="product : ${products}">
+                    <td th:text="${product.name}"></td>
+                    <td th:text="${product.price}"></td>
+                    <td th:text="${product.stockQuantity}"></td>
+                    <td>
+                        <input type="hidden" name="productId" th:value="${product.id}" />
+                        <input type="number" name="stockQuantity" min="0" th:value="${product.stockQuantity}" />
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <button type="submit">Update Quantities</button>
+        </form>
+    </section>
 </div>
 
 <div th:insert="~{fragments/footer :: footer}"></div>

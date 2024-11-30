@@ -48,5 +48,11 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
-
+    @Override
+    public void updateProductStock(Long productId, Integer stockQuantity) {
+        productRepository.findById(productId).ifPresent(product -> {
+            product.setStockQuantity(stockQuantity);
+            productRepository.save(product);
+        });
+    }
 }

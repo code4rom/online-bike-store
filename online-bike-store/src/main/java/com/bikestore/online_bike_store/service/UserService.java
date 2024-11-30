@@ -2,6 +2,7 @@ package com.bikestore.online_bike_store.service;
 
 import com.bikestore.online_bike_store.model.User;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
@@ -19,4 +20,6 @@ public interface UserService {
     void registerUser(User user);
 
     void saveUser(User user);
+
+    List<User> findAllUsers();
 }
