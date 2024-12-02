@@ -2,7 +2,6 @@ package com.bikestore.online_bike_store.model;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
-import java.util.Set;
 @Entity
 public class Product {
 
@@ -20,8 +19,6 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
-
-    @OneToMany(mappedBy = "product")
 
     public String getImageUrl() {
         return imageUrl;
