@@ -35,6 +35,6 @@ public class ProductController {
             model.addAttribute("product", product.get());
             return "product-detail";
         } else {
-            return "redirect:/products"; // Redirect to product list if product not found
+            return "redirect:/products";
         }}
 }

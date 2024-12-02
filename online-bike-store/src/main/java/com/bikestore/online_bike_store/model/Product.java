@@ -22,7 +22,6 @@ public class Product {
     private Category category;
 
     @OneToMany(mappedBy = "product")
-    private Set<OrderItem> orderItems;
 
     public String getImageUrl() {
         return image_Url;
