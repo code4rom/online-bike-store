@@ -37,7 +37,8 @@ Thymeleaf for dynamic HTML templates.
 CSS for responsive and visually appealing UI.
 Database:
 
-MySQL for relational data storage.
+MySQL for relational data storage.(root/Romadmin - for DB access)
+
 Tools and Build System:
 
 Maven for dependency management.
