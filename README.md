@@ -20,12 +20,17 @@ Checkout Process:
 Secure checkout form for shipping and payment information.
 Integration of payment details with total cart amount.
 Confirmation page after successful checkout.
+
+Admin dashboard for managing registered users, changing quantities and prices of products. 
+
 Technologies Used
+
 Backend:
 
 Java with Spring Boot for RESTful APIs and business logic.
 Spring Security for authentication and authorization.
 Hibernate and JPA for database operations.
+
 Frontend:
 
 Thymeleaf for dynamic HTML templates.
