@@ -5,6 +5,7 @@ import com.bikestore.online_bike_store.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,18 +41,30 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void addProductToCart(Long productId, int quantity) {
-        ProductServiceImpl cartService = null;
-        cartService.addProductToCart(productId, quantity);
+        productRepository.findById(productId).ifPresent(product -> {
+            product.setStockQuantity(product.getStockQuantity() - quantity);
+            productRepository.save(product);
+        });
     }
 
     @Override
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
+
     @Override
     public void updateProductStock(Long productId, Integer stockQuantity) {
         productRepository.findById(productId).ifPresent(product -> {
             product.setStockQuantity(stockQuantity);
+            productRepository.save(product);
+        });
+    }
+
+    @Override
+    public void updateProductStockAndPrice(Long productId, Integer stockQuantity, BigDecimal price) {
+        productRepository.findById(productId).ifPresent(product -> {
+            product.setStockQuantity(stockQuantity);
+            product.setPrice(price);
             productRepository.save(product);
         });
     }

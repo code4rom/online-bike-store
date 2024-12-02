@@ -19,9 +19,8 @@ public class OrderItem {
     private Product product;
 
     private int quantity;
-    private double price;
+    private BigDecimal price;
 
-    // Getters and setters
 
     public Long getId() {
         return id;
@@ -39,7 +38,7 @@ public class OrderItem {
         return quantity;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
@@ -59,7 +58,7 @@ public class OrderItem {
         this.quantity = quantity;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 }

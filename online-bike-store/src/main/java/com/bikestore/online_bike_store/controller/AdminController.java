@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
@@ -27,7 +28,6 @@ public class AdminController {
 
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
-        // Fetch registered users and products
         List<User> users = userService.findAllUsers();
         List<Product> products = productService.findAllProducts();
 
@@ -39,16 +39,17 @@ public class AdminController {
     }
 
     @PostMapping("/dashboard/update-products")
-    public String updateProductQuantities(
+    public String updateProducts(
             @RequestParam("productId") List<Long> productIds,
-            @RequestParam("stockQuantity") List<Integer> stockQuantities) {
+            @RequestParam("stockQuantity") List<Integer> stockQuantities,
+            @RequestParam("productPrice") List<BigDecimal> productPrices) {
 
-        // Update products' stock quantities
         for (int i = 0; i < productIds.size(); i++) {
             Long productId = productIds.get(i);
             Integer stockQuantity = stockQuantities.get(i);
+            BigDecimal productPrice = productPrices.get(i);
 
-            productService.updateProductStock(productId, stockQuantity);
+            productService.updateProductStockAndPrice(productId, stockQuantity, productPrice);
         }
 
         return "redirect:/dashboard";

@@ -13,12 +13,12 @@ public class CustomerOrder {
 
     @Valid
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id", nullable = false) // Maps to the "address_id" column
+    @JoinColumn(name = "address_id", nullable = false) 
     private Address address;
 
     @Valid
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "payment_id", nullable = false) // Maps to the "payment_id" column
+    @JoinColumn(name = "payment_id", nullable = false)
     private Payment payment;
 
     @ManyToOne
