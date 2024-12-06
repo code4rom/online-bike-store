@@ -102,6 +102,6 @@ public class CartController {
                 return cartService.getCartItemsByUser(user).size();
             }
         }
-        return 0; // Show zero if not logged in or cart is empty
+        return 0;
     }
 }

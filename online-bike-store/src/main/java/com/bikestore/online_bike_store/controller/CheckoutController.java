@@ -37,8 +37,8 @@ public class CheckoutController {
     @GetMapping("/checkout")
     public String checkoutPage(Model model) {
         CustomerOrder order = new CustomerOrder();
-        order.setAddress(new Address()); // Initialize Address
-        order.setPayment(new Payment()); // Initialize Payment
+        order.setAddress(new Address());
+        order.setPayment(new Payment());
         model.addAttribute("order", order);
         return "checkout";
     }

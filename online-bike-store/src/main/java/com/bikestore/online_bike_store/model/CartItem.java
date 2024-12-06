@@ -25,7 +25,7 @@ public class CartItem implements Serializable {
     @Min(1)
     private int quantity;
 
-    // Default constructor
+
     public CartItem() {}
 
     public CartItem(User user, Product product, int quantity) {

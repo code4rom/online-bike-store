@@ -25,7 +25,7 @@ public class RegisterController {
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new User());
-        return "register"; // Register page
+        return "register";
     }
 
     @PostMapping("/register")
@@ -48,6 +48,6 @@ public class RegisterController {
         }
 
          userService.registerUser(user);
-        return "redirect:/login"; // Redirect to login page
+        return "redirect:/login";
     }
 }
